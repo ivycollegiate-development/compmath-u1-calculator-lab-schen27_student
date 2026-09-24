@@ -21,8 +21,13 @@ def get_number(prompt):
     float() raises ValueError and the whole program crashes.
     FIX ME: wrap this in try/except so bad input asks again.
     """
-    raw = input(prompt)
-    return float(raw)
+    while True: 
+        raw = input(prompt) 
+        try:
+            return float(raw) 
+        except ValueError:
+            print("That's not a number, please try again.")
+   
 
 
 def divide(a, b):
@@ -32,7 +37,10 @@ def divide(a, b):
     FIX ME: handle b == 0 safely — return None and let the caller
     print a friendly message, or raise ValueError with a clear message.
     """
-    return a / b
+    if b==0:
+        print("Can't divide by zero.")
+        return None
+  
 
 
 def main():
@@ -47,7 +55,7 @@ def main():
 
         if choice not in ("1", "2", "3", "4"):
             print("Please pick 1, 2, 3, 4, or q.")
-            continue
+
 
         a = get_number("First number: ")
         b = get_number("Second number: ")
@@ -59,7 +67,10 @@ def main():
         elif choice == "3":
             result = a * b
         elif choice == "4":
-            result = divide(a, b)
+            try: divide(a, b)
+            except b==0:
+                print("Can't divide by zero.")
+            return None
 
         print(f"Result: {result}")
 
